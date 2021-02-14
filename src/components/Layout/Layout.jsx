@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react'
 import { withRouter } from 'react-router-dom'
-import Home from '../courses/Courses';
 import Footer from './../common/Footer';
 import TopNav from './../common/header/TopNav';
 import MainNav from '../common/header/MainNav';

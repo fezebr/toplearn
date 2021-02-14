@@ -1,17 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
-import axios from 'axios'
+
 import { Route, Switch } from 'react-router-dom';
 import Layout from './../components/Layout/Layout';
 import Login from './../components/Login/Login';
 import Courses from './../components/courses/Courses';
 import Archive from './../components/courses/Archive';
-import CoursesContext from '../context/CoursesContext';
+import SingleCoursePage from './../components/courses/SingleCoursePage';
 
 
 const TopLearn = (props) => {
-
-
-
 
     return (
    
@@ -19,7 +15,8 @@ const TopLearn = (props) => {
                 <Switch>
                     <Route path="/" exact component={Courses} />
                     <Route path="/Login" component={Login} />
-                    <Route path="/Archive" component={Archive} />
+                    <Route path="/courses" component={Archive} />
+                    <Route path="/course/:id" component={SingleCoursePage} />
                     
                 </Switch>
             </Layout>

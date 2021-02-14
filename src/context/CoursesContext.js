@@ -1,6 +1,8 @@
 import React from 'react'
 const CoursesContext = React.createContext({
-     courses:""
+     courses:"",
+     loading:"",
+     currentPost:""
 });
 // state:this.state
 

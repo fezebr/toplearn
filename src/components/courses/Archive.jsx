@@ -1,12 +1,13 @@
 import { Fragment, useContext } from 'react'
 import Course from './Course';
 import CoursesContext from './../../context/CoursesContext';
+import Pagination from './../Pagination/pagination';
 
 
 const Archive = () => {
      const context = useContext(CoursesContext)
-     const {courses} = context
-
+     const { courses,currentPost } = context
+console.log(currentPost)
      return (
 
           <Fragment>
@@ -130,14 +131,16 @@ const Archive = () => {
 
                                    <section className="terms-items">
                                         <div className="row">
-                                             {courses.map(i => (
+                                             {currentPost.map(i => (
                                                   <div>
 
                                                        <Course
-                                                            key={i.id}
+                                                            _id={i._id}
+                                                            key={i._id}
                                                             title={i.title}
                                                             price={i.price}
                                                             image={i.imageUrl}
+                                                            
                                                        />
 
                                                   </div>
@@ -146,24 +149,7 @@ const Archive = () => {
 
                                         </div>
 
-
-                                        <nav aria-label="Page navigation">
-                                             <ul className="pagination justify-content-center">
-                                                  <li className="page-item">
-                                                       <a className="page-link" href="#" aria-label="Previous">
-                                                            <span aria-hidden="true"><i className="zmdi zmdi-chevron-right"></i></span>
-                                                       </a>
-                                                  </li>
-                                                  <li className="page-item"><a className="page-link" href="#">1</a></li>
-                                                  <li className="page-item"><a className="page-link" href="#">2</a></li>
-                                                  <li className="page-item"><a className="page-link" href="#">3</a></li>
-                                                  <li className="page-item">
-                                                       <a className="page-link" href="#" aria-label="Next">
-                                                            <span aria-hidden="true"><i className="zmdi zmdi-chevron-left"></i></span>
-                                                       </a>
-                                                  </li>
-                                             </ul>
-                                        </nav>
+                                        <Pagination />
 
                                    </section>
 

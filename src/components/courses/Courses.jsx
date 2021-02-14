@@ -17,7 +17,7 @@ const Courses = () => {
             <section className="terms-items">
                 <header>
                     <h2> آخرین دوره های تاپ لرن </h2>
-                    <NavLink to="Archive"> مشاهده همه دوره ها </NavLink>
+                    <NavLink to="courses"> مشاهده همه دوره ها </NavLink>
                 </header>
                 <div className="row">
 
@@ -25,7 +25,9 @@ const Courses = () => {
                         <div>
 
                             <Course
-                                key={i.id}
+                             
+                                _id={i._id}
+                                key={i._id}
                                 title={i.title}
                                 price={i.price}
                                 image={i.imageUrl}
@@ -123,3 +125,15 @@ const Courses = () => {
 }
 
 export default Courses;
+
+// function Child() {
+//     // We can use the `useParams` hook here to access
+//     // the dynamic pieces of the URL.
+//     let { id } = useParams();
+  
+//     return (
+//       <div>
+//         <h3>ID: {id}</h3>
+//       </div>
+//     );
+//   }
