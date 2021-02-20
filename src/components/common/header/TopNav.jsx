@@ -18,7 +18,8 @@ const TopNav = () => {
                               <div className="loggein ">
                               <i className="zmdi zmdi-account"></i>
                                    <NavLink to="Login"> ورود </NavLink>
-                                   <a href="" > /عضویت </a>
+                                   <NavLink to="register">/ عضویت  </NavLink>
+                                 
                                    {/* <i className="zmdi zmdi-account"></i><a href=""> ایمان مدائنی ، خوش آمدی </a> */}
                               </div>
                               <div className="signin hidden">
