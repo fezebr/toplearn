@@ -8,3 +8,10 @@ export const registerUser = user => {
           JSON.stringify(user)
           );
 };
+
+export const loginUser = user => {
+          return http.post(
+          "https://toplearnapi.ghorbany.dev/api/login",
+          JSON.stringify(user)
+          );
+};
