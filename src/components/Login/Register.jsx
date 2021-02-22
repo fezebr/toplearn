@@ -98,7 +98,7 @@ const Register = () => {
 
                                    <div className="link">
                                         <a href=""> <i className="zmdi zmdi-assignment"></i> قوانین و مقررات سایت !</a>
-                                        <a href=""> <i classNamezmdi zmdi-account"></i> ورود به سایت </a>
+                                        <a href=""> <i className="zmdi zmdi-account"></i> ورود به سایت </a>
                                    </div>
 
                                    <button className="btn btn-success"> عضویت در سایت </button>
