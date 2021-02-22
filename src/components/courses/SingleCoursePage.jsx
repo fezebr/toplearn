@@ -1,15 +1,18 @@
 import React, { Fragment, useContext, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import CoursesContext from './../../context/CoursesContext';
 import config from '../Services/config.json'
 import { Helmet } from 'react-helmet';
-const SingleCoursePage = () => {
+import { courseIdValidator } from './../validation/IdValidators';
+const SingleCoursePage = ({match}) => {
 
      const context = useContext(CoursesContext)
-     const { courses, loading ,currentPost} = context
+     const { courses, loading, currentPost } = context
      let { id } = useParams();
      console.log(id)
-     const [preloader, setPreloader] = useState(true)
+     if (!courseIdValidator(match.params.id)) return <Redirect to="/404" />
+
+     // const [preloader, setPreloader] = useState(true)
      let singleCourse = null
      // console.log(loading)
      console.log(currentPost.length)
@@ -27,12 +30,12 @@ const SingleCoursePage = () => {
      console.log(singleCourse)
      //      setPreloader(false)
      // }
-
+     // if (!courseIdValidator(match.params.id)) return <Redirect to="/MyNotFound"
      if (currentPost.length == 0) {
           return <h2>LOADING...</h2>
      } else {
           return (
-           
+
                <Fragment>
                     <div className="container">
                          <nav aria-label="breadcrumb">
@@ -55,7 +58,7 @@ const SingleCoursePage = () => {
                                         <section className="term-description">
                                              <img src={`${config.toplearnapi}/${singleCourse.imageUrl}`} />
 
-          <h2> {`درباره ${singleCourse.title}`}</h2>
+                                             <h2> {`درباره ${singleCourse.title}`}</h2>
                                                   لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
                                              <p> {singleCourse.info} </p>
 

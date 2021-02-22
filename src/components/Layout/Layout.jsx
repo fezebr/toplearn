@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react'
-import { withRouter } from 'react-router-dom'
+import React, { Fragment } from 'react';
+import { withRouter } from 'react-router-dom';
 import Footer from './../common/Footer';
 import TopNav from './../common/header/TopNav';
 import MainNav from '../common/header/MainNav';
@@ -22,7 +22,6 @@ const Layout = (props) => {
                         </div>
                   </div>
                   <MainNav />
-                  {/* <Home /> */}
                   <main id="home-page">
                         <div className="container">
                               {props.children}
