@@ -5,6 +5,8 @@ import { loginUser } from '../Services/userServise'
 import { toast } from 'react-toastify';
 import TextInput from './../validation/TextInput';
 import Checkbox from './../validation/Checkbox';
+import { NavLink } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 const Login = ({ history }) => {
      const initialValues = {
@@ -60,13 +62,15 @@ const Login = ({ history }) => {
                     <div className="container-content">
 
                          <header><h2> ورود به سایت </h2></header>
+                         <Helmet>
+                              <title>تاپلرن / ورود به سایت</title>
+                         </Helmet>
 
                          <div className="form-layer">
                               <Formik
                                    initialValues={initialValues}
                                    validationSchema={validationSchema}
                                    onSubmit={onSubmit}
-
                               >
 
                                    < Form >
@@ -97,10 +101,10 @@ const Login = ({ history }) => {
 
                                         <div className="link">
                                              <a href=""> <i className="zmdi zmdi-lock"></i> رمز عبور خود را فراموش کرده ام !</a>
-                                             <a href=""> <i className="zmdi zmdi-account"></i> عضویت در سایت </a>
+                                             <NavLink to="register"> <i className="zmdi zmdi-account"></i> عضویت در سایت </NavLink>
                                         </div>
 
-                                        <button className="btn btn-success"> ورود به سایت </button>
+                                        <button type="submit" className="btn btn-success none-outline"> ورود به سایت </button>
 
                                    </Form>
                               </Formik>

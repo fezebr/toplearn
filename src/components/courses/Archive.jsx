@@ -2,12 +2,13 @@ import { Fragment, useContext } from 'react'
 import Course from './Course';
 import CoursesContext from './../../context/CoursesContext';
 import Pagination from './../Pagination/pagination';
+import { Helmet } from 'react-helmet';
 
 
 const Archive = () => {
      const context = useContext(CoursesContext)
-     const { courses,currentPost } = context
-console.log(currentPost)
+     const { courses, currentPost } = context
+     console.log(currentPost)
      return (
 
           <Fragment>
@@ -27,8 +28,10 @@ console.log(currentPost)
 
                          <div className="top-bar">
 
-                              <header><h1> دوره های <span> برنامه نویسی وب </span> </h1> <span> 123 دوره </span></header>
-
+                              <header><h1> دوره های <span> برنامه نویسی وب </span> </h1> <span> {courses.length} دوره </span></header>
+                              <Helmet>
+                                   <title>تاپلرن / همه دورها</title>
+                              </Helmet>
                               <div className="row">
                                    <div className="col-md-4 col-sm-12 col-xs-12 pull-right">
                                         <form action="" method="">
@@ -140,7 +143,7 @@ console.log(currentPost)
                                                             title={i.title}
                                                             price={i.price}
                                                             image={i.imageUrl}
-                                                            
+
                                                        />
 
                                                   </div>

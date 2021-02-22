@@ -21,19 +21,6 @@ const Checkbox = ({ children, ...props }) => {
                     ) : null}
                </div>
           </div>
-
-
-          //    <div>
-
-
-          //        <label className="label">accept roules</label>
-          //        <input type="checkbox" {...field} {...props} />
-          //        {children}
-
-          //        {meta.touched && meta.error ? (
-          //            <p className="error">{meta.error}</p>
-          //        ) : null}
-          //    </div>
      );
 };
 

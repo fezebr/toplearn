@@ -2,6 +2,7 @@ import React, { Fragment, useContext, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import CoursesContext from './../../context/CoursesContext';
 import config from '../Services/config.json'
+import { Helmet } from 'react-helmet';
 const SingleCoursePage = () => {
 
      const context = useContext(CoursesContext)
@@ -45,6 +46,9 @@ const SingleCoursePage = () => {
                     <div className="container">
                          <section className="term-content">
                               <header><h1> {singleCourse.title}</h1></header>
+                              <Helmet>
+                                   <title>{singleCourse.title}</title>
+                              </Helmet>
                               <div className="row">
 
                                    <div className="col-md-8 col-sm-12 col-xs-12 pull-left">
@@ -209,7 +213,7 @@ const SingleCoursePage = () => {
                                                   </li>
                                              </ul>
 
-                                             <a href=""> شرکت در دوره : {singleCourse.price} تومان </a>
+                                             <a href=""> شرکت در دوره : {singleCourse.price == 0 ? "رایگان" : `${singleCourse.price} تومان`} </a>
                                         </div>
 
                                         <article className="teacher-info">
@@ -225,7 +229,7 @@ const SingleCoursePage = () => {
                                              <ul>
                                                   <li>سطح دوره: پیشرفته</li>
                                                   <li>وضعیت دوره: در حال برگزاری</li>
-                                                  <li>قیمت : {singleCourse.price} تومان</li>
+                                                  <li>قیمت :{singleCourse.price == 0 ? "رایگان" : `${singleCourse.price} تومان`} </li>
                                                   <li>تاریخ ثبت این دوره : چهار شنبه ۲۱ شهریور ۱۳۹۷</li>
                                                   <li>آخرین بروزرسانی دوره : چهار شنبه ۲۱ شهریور ۱۳۹۷</li>
                                              </ul>

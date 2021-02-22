@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup'
 import { toast, ToastContainer } from "react-toastify";
+import Helmet from 'react-helmet'
 import { registerUser } from './../Services/userServise';
 import TextInput from './../validation/TextInput';
 import Checkbox from './../validation/Checkbox';
-
+import { NavLink } from 'react-router-dom';
+import Login from './Login';
 
 const Register = () => {
      const initialValues = {
-          name: "",
+          fullname: "",
           email: "",
           password: "",
           acceptedTerms: false,
@@ -19,7 +21,6 @@ const Register = () => {
 
      const onSubmit = async (values, { resetForm }) => {
           console.log(values)
-
 
           try {
                const { status } = await registerUser(values);
@@ -42,7 +43,7 @@ const Register = () => {
      const validationSchema = Yup.object({
           email: Yup.string().email('ایمیل خود را به درستی وارد کنید!').required('پر کردن این فیلد اجباریست!'),
           password: Yup.string().required('پر کردن این فیلد اجباریست!'),
-          name: Yup.string().required('پر کردن این فیلد اجباریست!'),
+          fullname: Yup.string().required('پر کردن این فیلد اجباریست!'),
           acceptedTerms: Yup.boolean().oneOf([true], 'شما باید قوانین را بپذیرید!'),
 
      })
@@ -52,8 +53,10 @@ const Register = () => {
                <div className="container-content">
                     <header>
                          <h2 > عضویت در سایت </h2>
-
                     </header>
+                    <Helmet>
+                         <title>تاپلرن / عضویت در سایت</title>
+                    </Helmet>
 
                     <div className="form-layer">
                          <Formik
@@ -62,11 +65,11 @@ const Register = () => {
                               onSubmit={onSubmit}
                          >
 
-                              <Form onSubmit={onSubmit}>
+                              <Form >
 
                                    <TextInput
-                                        name="name"
-                                        id="name"
+                                        name="fullname"
+                                        id="fullname"
                                         type="text"
                                         className="form-control"
                                         placeholder="نام و نام خانوادگی"
@@ -98,10 +101,10 @@ const Register = () => {
 
                                    <div className="link">
                                         <a href=""> <i className="zmdi zmdi-assignment"></i> قوانین و مقررات سایت !</a>
-                                        <a href=""> <i className="zmdi zmdi-account"></i> ورود به سایت </a>
+                                        <NavLink to="Login"> <i className="zmdi zmdi-account"></i> ورود به سایت </NavLink>
                                    </div>
 
-                                   <button className="btn btn-success"> عضویت در سایت </button>
+                                   <button type="submit" className="btn btn-success none-outline"> عضویت در سایت </button>
 
                               </Form>
                          </Formik>

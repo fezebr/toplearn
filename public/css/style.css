@@ -1202,3 +1202,7 @@ main#home-page {
     margin-top: 7px;
     font-family: BYekan;
 }
+
+.none-outline{
+    outline: none !important;
+}
