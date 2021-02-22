@@ -1,95 +1,99 @@
 import React, { Fragment, useState } from 'react'
-import {whithRouter} from 'react-router-dom'
+import * as Yup from 'yup'
+import { Formik, Form } from 'formik';
 import { loginUser } from '../Services/userServise'
 import { toast } from 'react-toastify';
+import TextInput from './../validation/TextInput';
+import Checkbox from './../validation/Checkbox';
 
-const Login = ({history}) => {
-     const [email, setEmail] = useState("")
-     const [password, setPassword] = useState("")
-const reset = () =>{
-     setEmail("")
-     setPassword("")
-}
+const Login = ({ history }) => {
+     const initialValues = {
+          email: "",
+          password: "",
+          acceptedTerms: false,
 
-     const handleSubmit = async event => {
-          event.preventDefault()
-          const user = {
-               email,
-               password
-          }
+     }
+
+     const onSubmit = async (values, { resetForm }) => {
+          console.log(values)
           try {
-               const { status, data } = await loginUser(user)
+               const { status, data } = await loginUser(values)
                if (status === 200) {
                     toast.success("ورود با موفقیت انجام شد.",
-                     {
-                        position: "top-right",
-                        closeOnClick: true
-                    });
+                         {
+                              position: "top-right",
+                              closeOnClick: true
+                         });
+                    resetForm();
                     console.log(data)
-                    localStorage.setItem("token",data.token);
+                    localStorage.setItem("token", data.token);
                     history.replace("/")
-                    reset();
-                }
-          } catch (ex) {
-                    console.log(ex)
-                    toast.error("مشکلی پیش آمده.", {
-                         position: "top-right",
-                         closeOnClick: true
-                     });
+
                }
-
+          } catch (ex) {
+               console.log(ex)
+               toast.error("مشکلی پیش آمده.", {
+                    position: "top-right",
+                    closeOnClick: true
+               });
           }
-     console.log(email)
-          console.log(password)
-          return (
+     }
+     const validationSchema = Yup.object({
+          email: Yup.string().email('ایمیل خود را به درستی وارد کنید!').required('پر کردن این فیلد اجباریست!'),
+          password: Yup.string().required('پر کردن این فیلد اجباریست!'),
+          acceptedTerms: Yup.boolean().oneOf([true], 'شما باید قوانین را بپذیرید!'),
+     })
+     return (
 
-               <Fragment>
+          <Fragment>
 
-                    <div className="container">
-                         <nav aria-label="breadcrumb">
-                              <ul className="breadcrumb">
-                                   <li className="breadcrumb-item"><a href="#">تاپ لرن</a></li>
-                                   <li className="breadcrumb-item active" aria-current="page">ورود به سایت</li>
-                              </ul>
-                         </nav>
-                    </div>
+               <div className="container">
+                    <nav aria-label="breadcrumb">
+                         <ul className="breadcrumb">
+                              <li className="breadcrumb-item"><a href="#">تاپ لرن</a></li>
+                              <li className="breadcrumb-item active" aria-current="page">ورود به سایت</li>
+                         </ul>
+                    </nav>
+               </div>
 
-                    <main className="client-page">
-                         <div className="container-content">
+               <main className="client-page">
+                    <div className="container-content">
 
-                              <header><h2> ورود به سایت </h2></header>
+                         <header><h2> ورود به سایت </h2></header>
 
-                              <div className="form-layer">
+                         <div className="form-layer">
+                              <Formik
+                                   initialValues={initialValues}
+                                   validationSchema={validationSchema}
+                                   onSubmit={onSubmit}
 
-                                   <form onSubmit={handleSubmit}>
+                              >
 
-                                        <div className="input-group">
-                                             <span className="input-group-addon" id="email-address"><i className="zmdi zmdi-email"></i></span>
-                                             <input
-                                                  type="text"
-                                                  className="form-control"
-                                                  placeholder="ایمیل"
-                                                  aria-describedby="email-address"
-                                                  onChange={e => setEmail(e.target.value)}
-                                                  value={email}
-                                             />
-                                        </div>
+                                   < Form >
 
-                                        <div className="input-group">
-                                             <span className="input-group-addon" id="password"><i className="zmdi zmdi-lock"></i></span>
-                                             <input
-                                                  type="password"
-                                                  className="form-control"
-                                                  placeholder="رمز عبور "
-                                                  aria-describedby="password"
-                                                  onChange={e => setPassword(e.target.value)}
-                                                  value={password}
-                                             />
-                                        </div>
+                                        <TextInput
+                                             name="email"
+                                             id="email"
+                                             type="text"
+                                             className="form-control"
+                                             placeholder="ایمیل"
+                                             classIcon="zmdi zmdi-email"
+                                        />
 
-                                        <div className="remember-me">
-                                             <label><input type="checkbox" name="" />  مرا بخاطر بسپار </label>
-                                        </div>
+
+                                        <TextInput
+                                             name="password"
+                                             id="password"
+                                             type="password"
+                                             className="form-control"
+                                             placeholder="رمز عبور "
+                                             classIcon="zmdi zmdi-lock"
+                                        />
+
+
+                                        <Checkbox
+                                             name="acceptedTerms"
+                                        />
 
                                         <div className="link">
                                              <a href=""> <i className="zmdi zmdi-lock"></i> رمز عبور خود را فراموش کرده ام !</a>
@@ -98,14 +102,15 @@ const reset = () =>{
 
                                         <button className="btn btn-success"> ورود به سایت </button>
 
-                                   </form>
-                              </div>
-
+                                   </Form>
+                              </Formik>
                          </div>
-                    </main>
 
-               </Fragment>
-          );
-     }
+                    </div>
+               </main >
 
-     export default Login;
+          </Fragment >
+     );
+}
+
+export default Login;

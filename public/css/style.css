@@ -1196,3 +1196,9 @@ main#home-page {
         text-align: center;
     }
 }
+
+.error-valisation{
+    color: red;
+    margin-top: 7px;
+    font-family: BYekan;
+}

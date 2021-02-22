@@ -1,44 +1,52 @@
 import React, { useState } from "react";
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup'
 import { toast, ToastContainer } from "react-toastify";
 import { registerUser } from './../Services/userServise';
+import TextInput from './../validation/TextInput';
+import Checkbox from './../validation/Checkbox';
+
 
 const Register = () => {
-     const [fullname, setFullname] = useState("");
-     const [email, setEmail] = useState("");
-     const [password, setPassword] = useState("");
+     const initialValues = {
+          name: "",
+          email: "",
+          password: "",
+          acceptedTerms: false,
 
-     const reset = () => {
-          setFullname("");
-          setEmail("");
-          setPassword("");
+     }
+
+
+     const onSubmit = async (values, { resetForm }) => {
+          console.log(values)
+
+
+          try {
+               const { status } = await registerUser(values);
+               if (status === 201) {
+                    toast.success("کاربر با موفقیت ساخته شد.", {
+                         position: "top-right",
+                         closeOnClick: true
+                    });
+                    resetForm();
+               }
+          } catch (ex) {
+               toast.error("مشکلی پیش آمده.", {
+                    position: "top-right",
+                    closeOnClick: true
+               });
+               console.log(ex);
+          }
      };
 
-     const handleSubmit = async event => {
-          event.preventDefault();
-          const user = {
-              fullname,
-              email,
-              password
-          };
-  
-          try {
-              const { status } = await registerUser(user);
-              if (status === 201) {
-                  toast.success("کاربر با موفقیت ساخته شد.", {
-                      position: "top-right",
-                      closeOnClick: true
-                  });
-                  reset();
-              }
-          } catch (ex) {
-              toast.error("مشکلی پیش آمده.", {
-                  position: "top-right",
-                  closeOnClick: true
-              });
-              console.log(ex);
-          }
-      };
-   
+     const validationSchema = Yup.object({
+          email: Yup.string().email('ایمیل خود را به درستی وارد کنید!').required('پر کردن این فیلد اجباریست!'),
+          password: Yup.string().required('پر کردن این فیلد اجباریست!'),
+          name: Yup.string().required('پر کردن این فیلد اجباریست!'),
+          acceptedTerms: Yup.boolean().oneOf([true], 'شما باید قوانین را بپذیرید!'),
+
+     })
+
      return (
           <main className="client-page">
                <div className="container-content">
@@ -48,67 +56,55 @@ const Register = () => {
                     </header>
 
                     <div className="form-layer">
-                         <form onSubmit={handleSubmit}>
-                              <div className="input-group">
-                                   <span className="input-group-addon" id="username">
-                                        <i className="zmdi zmdi-account"></i>
-                                   </span>
-                                   <input
+                         <Formik
+                              initialValues={initialValues}
+                              validationSchema={validationSchema}
+                              onSubmit={onSubmit}
+                         >
+
+                              <Form onSubmit={onSubmit}>
+
+                                   <TextInput
+                                        name="name"
+                                        id="name"
                                         type="text"
                                         className="form-control"
                                         placeholder="نام و نام خانوادگی"
-                                        aria-describedby="username"
-                                        value={fullname}
-                                        onChange={e => setFullname(e.target.value)}
+                                        classIcon="zmdi zmdi-account"
                                    />
-                              </div>
 
-                              <div className="input-group">
-                                   <span
-                                        className="input-group-addon"
-                                        id="email-address"
-                                   >
-                                        <i className="zmdi zmdi-email"></i>
-                                   </span>
-                                   <input
+                                   <TextInput
+                                        name="email"
+                                        id="email"
                                         type="text"
                                         className="form-control"
                                         placeholder="ایمیل"
-                                        aria-describedby="email-address"
-                                        value={email}
-                                        onChange={e => setEmail(e.target.value)}
+                                        classIcon="zmdi zmdi-email"
                                    />
-                              </div>
 
-                              <div className="input-group">
-                                   <span className="input-group-addon" id="password">
-                                        <i className="zmdi zmdi-lock"></i>
-                                   </span>
-                                   <input
+                                   <TextInput
+                                        name="password"
+                                        id="password"
                                         type="password"
                                         className="form-control"
                                         placeholder="رمز عبور "
-                                        aria-describedby="password"
-                                        value={password}
-                                        onChange={e => setPassword(e.target.value)}
+                                        classIcon="zmdi zmdi-lock"
                                    />
-                              </div>
 
-                              <div className="accept-rules">
-                                   <label>
-                                        <input type="checkbox" name="" />
-                                          قوانین و مقررات سایت را میپذیرم
-                                          </label>
-                              </div>
 
-                              <div className="link">
-                                   <a href=""> <i className="zmdi zmdi-assignment"></i> قوانین و مقررات سایت !</a>
-                                   <a href=""> <i className="zmdi zmdi-account"></i> ورود به سایت </a>
-                              </div>
+                                   <Checkbox
+                                        name="acceptedTerms"
+                                   />
 
-                              <button className="btn btn-success"> عضویت در سایت </button>
+                                   <div className="link">
+                                        <a href=""> <i className="zmdi zmdi-assignment"></i> قوانین و مقررات سایت !</a>
+                                        <a href=""> <i classNamezmdi zmdi-account"></i> ورود به سایت </a>
+                                   </div>
 
-                         </form>
+                                   <button className="btn btn-success"> عضویت در سایت </button>
+
+                              </Form>
+                         </Formik>
                     </div>
 
                </div>
