@@ -7,7 +7,7 @@ const Course = ({ title, price, image, _id }) => {
      const handleClick = () => {
           history.push(`/course/${_id}`);
      }
-     console.log(_id)
+     // console.log(_id)
      if (price == 0) {
           cost = "رایگان"
      } else {

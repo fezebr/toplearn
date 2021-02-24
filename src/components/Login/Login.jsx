@@ -7,6 +7,8 @@ import TextInput from './../validation/TextInput';
 import Checkbox from './../validation/Checkbox';
 import { NavLink } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { decodeToken } from './../utils/decodeToken';
+import UserContext from './../../context/UserContext';
 
 const Login = ({ history }) => {
      const initialValues = {
@@ -16,6 +18,7 @@ const Login = ({ history }) => {
 
      }
 
+     const [addUser, setAddUser] = useState("")
      const onSubmit = async (values, { resetForm }) => {
           console.log(values)
           try {
@@ -26,10 +29,12 @@ const Login = ({ history }) => {
                               position: "top-right",
                               closeOnClick: true
                          });
-                    resetForm();
-                    console.log(data)
                     localStorage.setItem("token", data.token);
+                    const userOfToken = (decodeToken(data.token).payload.user)
+                    console.log(userOfToken)
+                    setAddUser(userOfToken)
                     history.replace("/")
+                    resetForm();
 
                }
           } catch (ex) {
@@ -40,6 +45,7 @@ const Login = ({ history }) => {
                });
           }
      }
+     console.log(addUser)
      const validationSchema = Yup.object({
           email: Yup.string().email('ایمیل خود را به درستی وارد کنید!').required('پر کردن این فیلد اجباریست!'),
           password: Yup.string().required('پر کردن این فیلد اجباریست!'),
@@ -48,7 +54,6 @@ const Login = ({ history }) => {
      return (
 
           <Fragment>
-
                <div className="container">
                     <nav aria-label="breadcrumb">
                          <ul className="breadcrumb">
@@ -113,7 +118,7 @@ const Login = ({ history }) => {
                     </div>
                </main >
 
-          </Fragment >
+          </Fragment>
      );
 }
 
