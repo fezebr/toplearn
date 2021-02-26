@@ -1,8 +1,8 @@
 import { Fragment, useContext } from 'react'
 import Course from './Course';
-import CoursesContext from './../../context/CoursesContext';
 import Pagination from './../Pagination/pagination';
 import { Helmet } from 'react-helmet';
+import { CoursesContext } from './../../context/context';
 
 
 const Archive = () => {

@@ -16,7 +16,9 @@ const Layout = (props) => {
                   </Helmet>
                   <div className="landing-layer">
                         <div className="container">
-                              <TopNav />
+                              {/* <UserContext> */}
+                                    <TopNav />
+                              {/* </UserContext> */}
                               {pathname === "/" ? <Header /> : null}
 
                         </div>

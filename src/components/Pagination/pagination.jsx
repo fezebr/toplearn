@@ -1,5 +1,5 @@
 import React, { useState,Fragment,useContext } from 'react';
-import CoursesContext from './../../context/CoursesContext';
+import { CoursesContext } from './../../context/context';
 
 const Pagination = () => {
      const context = useContext(CoursesContext)

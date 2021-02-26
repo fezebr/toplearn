@@ -1,56 +1,30 @@
-import React, { Fragment, useState } from 'react'
-import * as Yup from 'yup'
+import React, { Fragment, useContext, useState } from 'react'
 import { Formik, Form } from 'formik';
-import { loginUser } from '../Services/userServise'
-import { toast } from 'react-toastify';
+import * as Yup from 'yup'
 import TextInput from './../validation/TextInput';
 import Checkbox from './../validation/Checkbox';
 import { NavLink } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { decodeToken } from './../utils/decodeToken';
-import UserContext from './../../context/UserContext';
+import { userContext } from './../../context/context';
 
 const Login = ({ history }) => {
+     console.log(history)
+
+     const loginContext = useContext(userContext)
+     const { loginOnSubmit } = loginContext
+
+     const validationSchema = Yup.object({
+          email: Yup.string().email('ایمیل خود را به درستی وارد کنید!').required('پر کردن این فیلد اجباریست!'),
+          password: Yup.string().required('پر کردن این فیلد اجباریست!'),
+          acceptedTerms: Yup.boolean().oneOf([true], 'شما باید قوانین را بپذیرید!'),
+     })
+
      const initialValues = {
           email: "",
           password: "",
           acceptedTerms: false,
 
      }
-
-     const [addUser, setAddUser] = useState("")
-     const onSubmit = async (values, { resetForm }) => {
-          console.log(values)
-          try {
-               const { status, data } = await loginUser(values)
-               if (status === 200) {
-                    toast.success("ورود با موفقیت انجام شد.",
-                         {
-                              position: "top-right",
-                              closeOnClick: true
-                         });
-                    localStorage.setItem("token", data.token);
-                    const userOfToken = (decodeToken(data.token).payload.user)
-                    console.log(userOfToken)
-                    setAddUser(userOfToken)
-                    history.replace("/")
-                    resetForm();
-
-               }
-          } catch (ex) {
-               console.log(ex)
-               toast.error("مشکلی پیش آمده.", {
-                    position: "top-right",
-                    closeOnClick: true
-               });
-          }
-     }
-     console.log(addUser)
-     const validationSchema = Yup.object({
-          email: Yup.string().email('ایمیل خود را به درستی وارد کنید!').required('پر کردن این فیلد اجباریست!'),
-          password: Yup.string().required('پر کردن این فیلد اجباریست!'),
-          acceptedTerms: Yup.boolean().oneOf([true], 'شما باید قوانین را بپذیرید!'),
-     })
      return (
 
           <Fragment>
@@ -75,7 +49,7 @@ const Login = ({ history }) => {
                               <Formik
                                    initialValues={initialValues}
                                    validationSchema={validationSchema}
-                                   onSubmit={onSubmit}
+                                   onSubmit={loginOnSubmit}
                               >
 
                                    < Form >

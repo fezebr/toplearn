@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup'
-import { toast, ToastContainer } from "react-toastify";
 import Helmet from 'react-helmet'
-import { registerUser } from './../Services/userServise';
 import TextInput from './../validation/TextInput';
 import Checkbox from './../validation/Checkbox';
 import { NavLink } from 'react-router-dom';
-import Login from './Login';
+import { userContext } from "../../context/context";
 
 const Register = () => {
+     const registerContext = useContext(userContext)
+     const { RegisterOnSubmit } = registerContext
+
+
      const initialValues = {
           fullname: "",
           email: "",
@@ -19,26 +21,6 @@ const Register = () => {
      }
 
 
-     const onSubmit = async (values, { resetForm }) => {
-          console.log(values)
-
-          try {
-               const { status } = await registerUser(values);
-               if (status === 201) {
-                    toast.success("کاربر با موفقیت ساخته شد.", {
-                         position: "top-right",
-                         closeOnClick: true
-                    });
-                    resetForm();
-               }
-          } catch (ex) {
-               toast.error("مشکلی پیش آمده.", {
-                    position: "top-right",
-                    closeOnClick: true
-               });
-               console.log(ex);
-          }
-     };
 
      const validationSchema = Yup.object({
           email: Yup.string().email('ایمیل خود را به درستی وارد کنید!').required('پر کردن این فیلد اجباریست!'),
@@ -62,7 +44,7 @@ const Register = () => {
                          <Formik
                               initialValues={initialValues}
                               validationSchema={validationSchema}
-                              onSubmit={onSubmit}
+                              onSubmit={RegisterOnSubmit}
                          >
 
                               <Form >

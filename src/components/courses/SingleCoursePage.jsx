@@ -1,6 +1,6 @@
 import React, { Fragment, useContext, useState, useEffect } from 'react';
 import { Redirect, useParams } from 'react-router-dom';
-import CoursesContext from './../../context/CoursesContext';
+import {CoursesContext} from './../../context/context';
 import config from '../Services/config.json'
 import { Helmet } from 'react-helmet';
 import { courseIdValidator } from './../validation/IdValidators';
