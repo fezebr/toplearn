@@ -1,9 +1,10 @@
 import React,{useContext} from 'react'
 import { userContext } from '../../context/context';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 const Profile = () => {
      const context = useContext(userContext)
      const {User} = context
+     if(!User) return <Redirect to="Login"/>
      return (
 
           <div className="user-account">

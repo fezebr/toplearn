@@ -53,7 +53,7 @@ const UerContext = ({history }) => {
                const dateNow = Date.now() / 1000;    ///// changed to second''
                if (decodedToken.payload.exp < dateNow) {
                     localStorage.removeItem("token")
-                    setUser({})
+                    setUser("")
                }
                else {
                     setUser(decodedToken.payload.user)

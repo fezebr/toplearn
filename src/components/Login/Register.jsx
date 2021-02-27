@@ -4,14 +4,16 @@ import * as Yup from 'yup'
 import Helmet from 'react-helmet'
 import TextInput from './../validation/TextInput';
 import Checkbox from './../validation/Checkbox';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import { userContext } from "../../context/context";
 
 const Register = () => {
      const registerContext = useContext(userContext)
-     const { RegisterOnSubmit } = registerContext
+     const { RegisterOnSubmit, User } = registerContext
 
-
+     if (User) {
+          return <Redirect to="/" />
+     }
      const initialValues = {
           fullname: "",
           email: "",

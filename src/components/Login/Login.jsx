@@ -3,16 +3,18 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup'
 import TextInput from './../validation/TextInput';
 import Checkbox from './../validation/Checkbox';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { userContext } from './../../context/context';
+import { infoMessage } from './../utils/Message';
 
 const Login = ({ history }) => {
-     console.log(history)
-
      const loginContext = useContext(userContext)
-     const { loginOnSubmit } = loginContext
+     const { loginOnSubmit, User } = loginContext
 
+     if (User) {
+          return <Redirect to="/" />
+     }
      const validationSchema = Yup.object({
           email: Yup.string().email('ایمیل خود را به درستی وارد کنید!').required('پر کردن این فیلد اجباریست!'),
           password: Yup.string().required('پر کردن این فیلد اجباریست!'),
