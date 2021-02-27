@@ -7,7 +7,7 @@ import { loginUser, registerUser } from './../components/Services/userServise';
 import TopLearn from './../containers/TopLearn';
 
 
-const UerContext = ({ children, history }) => {
+const UerContext = ({history }) => {
 
      const [User, setUser] = useState("")
 
@@ -45,7 +45,7 @@ const UerContext = ({ children, history }) => {
           }
      }
      console.log(User)
-   
+   ///////////////////// check token
      useEffect(() => {
           const token = localStorage.getItem("token");
           if (token) {

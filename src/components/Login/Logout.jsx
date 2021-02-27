@@ -1,7 +1,5 @@
-import React, {useEffect, useContext } from 'react'
-// import { browserHistory } from 'react-router';
+import {useEffect, useContext } from 'react'
 import { userContext } from './../../context/context';
-// import { Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 
 
