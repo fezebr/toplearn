@@ -6,7 +6,7 @@ const TopNav = () => {
      const context = useContext(userContext)
      const { User } = context
      console.log(User)
-     
+
      return (
 
           <nav>
@@ -35,6 +35,10 @@ const TopNav = () => {
                                         <NavLink to="/Profile">
                                              {User.fullname}
                                         </NavLink>{" "}
+                                        {User.isAdmin ? (
+                                             <NavLink to="/dashboard">/داشبورد</NavLink>
+                                        ) : (null)}
+
                               / <NavLink to="/Logout">خروج</NavLink>
                                    </div>
                               ) : (
