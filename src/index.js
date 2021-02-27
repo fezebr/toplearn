@@ -1,10 +1,13 @@
 import React from 'react';
-import  ReactDOM  from 'react-dom';
+import ReactDOM from 'react-dom';
 import App from './containers/App';
+import GlobalState from './containers/GlobalState';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <GlobalState>
+      <App />
+    </GlobalState>
   </React.StrictMode>,
   document.getElementById('root')
 );
