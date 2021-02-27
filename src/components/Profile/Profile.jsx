@@ -1,5 +1,9 @@
-import React from 'react'
+import React,{useContext} from 'react'
+import { userContext } from '../../context/context';
+import { Link } from 'react-router-dom';
 const Profile = () => {
+     const context = useContext(userContext)
+     const {User} = context
      return (
 
           <div className="user-account">
@@ -14,7 +18,7 @@ const Profile = () => {
                                         <img src="images/pic/avatar.jpg" />
                                    </div>
                                    <div className="detail">
-                                        <span>{user.fullname}</span>
+                                        <span>{User.fullname}</span>
                                         <span> عضویت : 01/01/1395 </span>
                                    </div>
                               </div>
@@ -48,7 +52,7 @@ const Profile = () => {
                                              <li>
                                                   {" "}
                                                   <i className="zmdi zmdi-account"></i>{" "}
-                                    نام و نام خانوادگی : {user.fullname}{" "}
+                                    نام و نام خانوادگی : {User.fullname}{" "}
                                              </li>
                                              <li>
                                                   {" "}
@@ -58,7 +62,7 @@ const Profile = () => {
                                              <li>
                                                   {" "}
                                                   <i className="zmdi zmdi-email"></i>{" "}
-                                    ایمیل : {user.email}{" "}
+                                    ایمیل : {User.email}{" "}
                                              </li>
                                              <li>
                                                   {" "}
@@ -81,5 +85,4 @@ const Profile = () => {
      );
 }
 
-export default Profil
-e;
+export default Profile

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { userContext } from './context';
 import { errorMessage, successMessage } from './../components/utils/Message';
 import { withRouter } from 'react-router-dom';
@@ -45,13 +45,24 @@ const UerContext = ({ children, history }) => {
           }
      }
      console.log(User)
-     const historyPush = () => {
-          history.push("/")
-     }
-     const historyReplace = (history) => {
-          history.Replace("/")
-     }
-  
+   
+     useEffect(() => {
+          const token = localStorage.getItem("token");
+          if (token) {
+               const decodedToken = decodeToken(token);
+               const dateNow = Date.now() / 1000;    ///// changed to second''
+               if (decodedToken.payload.exp < dateNow) {
+                    localStorage.removeItem("token")
+                    setUser({})
+               }
+               else {
+                    setUser(decodedToken.payload.user)
+               }
+          }
+
+     }, [])
+     console.log(User)
+
      return (
           <userContext.Provider
                value={{

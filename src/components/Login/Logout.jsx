@@ -2,24 +2,21 @@ import React, {useEffect, useContext } from 'react'
 // import { browserHistory } from 'react-router';
 import { userContext } from './../../context/context';
 // import { Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
-const Logout = ({...props}) => {
+
+const Logout = ({history}) => {
      const logoutContext = useContext(userContext)
-     const { setUser,historyPush } = logoutContext
+     const { setUser } = logoutContext
 
      useEffect(() => {
           localStorage.removeItem("token")
-          // setUser("")
-          // browserHistory.push('/');
-          // props.history.push("/");
-          historyPush()
-          // console.log(history)
-          // props.removeItemhistory.replace("/")
-
+          history.push("/");
+          setUser("")
      }, [])
     
   
      return null;
 }
 
-export default Logout;
+export default withRouter(Logout);

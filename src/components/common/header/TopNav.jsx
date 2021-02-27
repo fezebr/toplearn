@@ -1,13 +1,27 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
+import { userContext } from '../../../context/context';
+
 const TopNav = () => {
+     const context = useContext(userContext)
+     const { User } = context
+     console.log(User)
+     
      return (
+
           <nav>
                <div className="row">
                     <div className="col-sm-6 col-xs-12">
                          <ul>
                               <li>
-                                   <a href=""> همکاری در فروش </a>
+                                   <NavLink
+                                        to="/"
+                                        exact
+                                        activeStyle={{ color: "lime" }}
+                                   >
+                                        {" "}
+                              صفحه اصلی{" "}
+                                   </NavLink>
                                    <a href=""> درباره ما </a>
                                    <a href=""> تماس با ما </a>
                               </li>
@@ -15,49 +29,47 @@ const TopNav = () => {
                     </div>
                     <div className="col-sm-6 col-xs-12">
                          <div className="clientarea">
-                              <div className="loggein ">
-                                   <i className="zmdi zmdi-account"></i>
-                                   <NavLink to="Login"> ورود </NavLink>
-                                   <NavLink to="register">/ عضویت  </NavLink>
-
-                                   {/* <i className="zmdi zmdi-account"></i><a href=""> ایمان مدائنی ، خوش آمدی </a> */}
-                              </div>
-                              <div className="signin hidden">
-                                   <i className="zmdi zmdi-account"></i>
-                                   <a href=""> ورود </a>
-                                   <a href="" > عضویت </a>
-                              </div>
+                              {User ? (
+                                   <div className="loggein ">
+                                        <i className="zmdi zmdi-account"></i>
+                                        <NavLink to="/Profile">
+                                             {User.fullname}
+                                        </NavLink>{" "}
+                              / <NavLink to="/Logout">خروج</NavLink>
+                                   </div>
+                              ) : (
+                                        <div className="signin ">
+                                             <i className="zmdi zmdi-account"></i>
+                                             <NavLink
+                                                  to="/login"
+                                                  activeStyle={{ color: "lime" }}
+                                             >
+                                                  {" "}
+                                  ورود{" "}
+                                             </NavLink>{" "}
+                              /
+                                             <NavLink
+                                                  to="/register"
+                                                  activeStyle={{ color: "lime" }}
+                                             >
+                                                  {" "}
+                                  عضویت{" "}
+                                             </NavLink>
+                                        </div>
+                                   )}
                          </div>
                     </div>
                </div>
-          </nav >
+          </nav>
+
+
      );
 }
 
 
+{/* <i className="zmdi zmdi-account"></i><a href=""> ایمان مدائنی ، خوش آمدی </a> */ }
 
 
-// <div className="clientarea">
-//      {User.fullname ? (
-//           <div className="signin hidden">
-//                <i className="zmdi zmdi-account"></i>
-//                <a href=""> {User.fullname} </a>
-
-//                <NavLink to="logout">/ خروج  </NavLink>
-
-//           </div>
-//      ) : (
-//                <div className="loggein ">
-//                     <i className="zmdi zmdi-account"></i>
-//                     <NavLink to="Login"> ورود </NavLink>
-//                     <NavLink to="register">/ عضویت  </NavLink>
-
-            
-//                </div>)
-//      }
-
-
-// </div>
 
 
 export default TopNav;
