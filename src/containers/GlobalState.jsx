@@ -28,7 +28,7 @@ const GlobalState = ({ children }) => {
 
      return (
           <CoursesContext.Provider
-               value={{ courses, loading, postPerPage, paginate, currentPost }}
+               value={{ courses, setCourses , loading, postPerPage, paginate, currentPost }}
           >
                {children}
           </CoursesContext.Provider >

@@ -13,6 +13,7 @@ import { userContext } from '../context/context';
 import PrivateLayout from '../components/Layout/PrivateLayout.jsx';
 import Dashboard from './../components/admin/Dashboard';
 import CourseTable from './../components/admin/CourseTable';
+import AdminContext from './../context/AdminContext';
 
 
 const TopLearn = () => {
@@ -22,8 +23,12 @@ const TopLearn = () => {
         <Switch>
             <Route path={["/dashboard"]}>
                 <PrivateLayout>
-                <Route path="/dashboard/courses" exact render={() => User && User.isAdmin ? (<CourseTable/>) : (<Redirect to ="/"/>)} />
-                <Route path="/dashboard" exact render={() => User && User.isAdmin ? (<Dashboard/>) : (<Redirect to ="/"/>)} />
+                    <Route path="/dashboard/courses" exact render={() => User && User.isAdmin ?
+                        (<AdminContext>
+                            <CourseTable />
+                        </AdminContext>
+                        ) : (<Redirect to="/" />)} />
+                    <Route path="/dashboard" exact render={() => User && User.isAdmin ? (<Dashboard />) : (<Redirect to="/" />)} />
                 </PrivateLayout>
             </Route>
             <Route path={["/"]}>

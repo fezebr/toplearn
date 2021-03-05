@@ -15,12 +15,12 @@ const SingleCoursePage = ({match}) => {
      // const [preloader, setPreloader] = useState(true)
      let singleCourse = null
      // console.log(loading)
-     console.log(currentPost.length)
+     console.log(courses.length)
 
-     if (currentPost.length == 0) {
+     if (courses.length == 0) {
           singleCourse = null
      } else {
-          singleCourse = currentPost.find(i => i._id == id)
+          singleCourse = courses.find(i => i._id == id)
      }
      // console.log(id)/////// id of  course
      // console.log(courses)//////// 7 course in array

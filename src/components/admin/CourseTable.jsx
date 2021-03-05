@@ -1,18 +1,22 @@
-import React ,{useContext} from 'react';
-import { CoursesContext } from './../../context/context';
+import React, { useContext } from 'react';
+import { adminContext, CoursesContext } from './../../context/context';
 const CourseTable = () => {
-     const context = useContext(CoursesContext)
-     const {courses} = context
-console.log(courses)
-     return ( 
-          <section style={{ marginTop: "5em", marginRight: "2em" }}>
+    const coursescontext = useContext(CoursesContext)
+    const { courses } = coursescontext
+    const admincontext = useContext(adminContext)
+    const { openNewCourseDialog, closeNewCourseDialog } = admincontext
+
+    console.log(courses)
+    return (
+        <section style={{ marginTop: "5em", marginRight: "2em" }}>
             <div>
                 <div>
                     <h3 className="alert alert-info text-center">
                         لیست دوره ها
                     </h3>
                     <div className="row inline-block">
-                        <button className="btn btn-primary">
+                        <button className="btn btn-primary"
+                            onClick={openNewCourseDialog}>
                             <span
                                 className="fa fa-plus"
                                 style={{
@@ -87,7 +91,7 @@ console.log(courses)
                 </div>
             </div>
         </section>
-      );
+    );
 }
- 
+
 export default CourseTable;

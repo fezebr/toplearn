@@ -1,20 +1,22 @@
 import React from 'react'
 export const CoursesContext = React.createContext({
      courses: "",
+     setCourses: () => { },
      postPerPage: "",
      paginate: "",
-     // setCourses: () => { },
      loading: "",
      currentPost: ""
      // setLoading: () => { },
 });
-
-
 
 export const userContext = React.createContext({
      User:"",
      setUser: () => {},
      RegisterOnSubmit:() =>{},
      loginOnSubmit:() =>{},
+
+});
+export const adminContext = React.createContext({
+     course:""
 
 });
