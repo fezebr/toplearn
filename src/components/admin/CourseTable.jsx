@@ -8,6 +8,7 @@ const CourseTable = () => {
         openNewCourseDialog,
         closeNewCourseDialog,
         openDeleteCourseDialog,
+        openEditeCourseDialog
 
     } = admincontext
 
@@ -71,7 +72,12 @@ const CourseTable = () => {
                                             : `${course.price}`}
                                     </td>
                                     <td>
-                                        <button className="btn btn-warning">
+                                        <button
+                                         className="btn btn-warning"
+                                         onClick={() =>
+                                            openEditeCourseDialog(course)
+                                        }
+                                         >
                                             ویرایش
                                         </button>
                                     </td>

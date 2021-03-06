@@ -21,6 +21,6 @@ export const getCourses = () => {
  };
 
  export const updateCourse = (courseId ,course ) => {
-    return axios.delete(`${config.toplearnapi}/api/course/${courseId}` , course);
+    return axios.put(`${config.toplearnapi}/api/course/${courseId}` , course);
  };
  

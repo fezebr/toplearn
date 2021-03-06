@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { adminContext, CoursesContext } from './context';
 import NewCourseDialog from './../components/admin/dialog/NewCourseDialog';
 import DeleteCourseDialog from './../components/admin/dialog/DeleteCourseDialog';
+import EditeCourseDialog from './../components/admin/dialog/EditeCourseDialog';
 const AdminContext = ({ children }) => {
      const context = useContext(CoursesContext)
      const { course } = context
@@ -10,6 +11,7 @@ const AdminContext = ({ children }) => {
 
      const [newCourseDialog, setNewCourseDialog] = useState(false)
      const [deleteCourseDialog, setDeleteCourseDialog] = useState(false)
+     const [editeCourseDialog, setEditeCourseDialog] = useState(false)
 
      const openNewCourseDialog = () => setNewCourseDialog(true)
      const closeNewCourseDialog = () => setNewCourseDialog(false)
@@ -20,6 +22,14 @@ const AdminContext = ({ children }) => {
           console.log(currentPost)
      }
      const closeDeleteCourseDialog = () => setDeleteCourseDialog(false)
+
+     const openEditeCourseDialog = (course) => {
+          setEditeCourseDialog(true)
+          setCurrentPost(course)
+          console.log(currentPost)
+     }
+     const closeEditeCourseDialog = () => setEditeCourseDialog(false)
+
      return (
           <adminContext.Provider
                value={{
@@ -27,7 +37,8 @@ const AdminContext = ({ children }) => {
                     openNewCourseDialog,
                     closeNewCourseDialog,
                     openDeleteCourseDialog,
-                    closeDeleteCourseDialog
+                    closeDeleteCourseDialog,
+                    openEditeCourseDialog
                }}
           >
                <NewCourseDialog
@@ -38,6 +49,12 @@ const AdminContext = ({ children }) => {
                <DeleteCourseDialog
                     showDialog={deleteCourseDialog}
                     closeDialog={closeDeleteCourseDialog}
+                    course={currentPost}
+               />
+
+               <EditeCourseDialog
+                    showDialog={editeCourseDialog}
+                    closeDialog={closeEditeCourseDialog}
                     course={currentPost}
                />
                { children}
