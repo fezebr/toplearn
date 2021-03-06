@@ -13,7 +13,7 @@ export const getCourses = () => {
  };
 
  export const newCourse = course => {
-     return axios.post(`${config.toplearnapi}/api/course`,course);
+     return http.post(`${config.toplearnapi}/api/course`,course);
  };
 
  export const deleteCourse = courseId => {

@@ -1,24 +1,8 @@
 import React, { useContext } from "react";
 import { Dialog, DialogOverlay, DialogContent } from "@reach/dialog";
-import { deleteCourse } from './../../Services/coursesService';
-import { CoursesContext } from './../../../context/context';
-import { successMessage } from './../../utils/Message';
 
-const DeleteCourseDialog = ({ showDialog, closeDialog, course }) => {
+const DeleteCourseDialog = ({ showDialog, closeDialog, course,handleCourseDelete }) => {
 
-    const context = useContext(CoursesContext)
-    const { courses } = context
-    console.log(course)
-
-    const handleCourseDelete = async (courseId) => {
-        try {
-            const { status } = await deleteCourse(courseId);
-
-            if (status === 200) successMessage("دوره با موفقیت پاک شد.");
-        } catch (ex) {
-           console.log(ex)
-        }
-    }
 
     return (
         <DialogOverlay

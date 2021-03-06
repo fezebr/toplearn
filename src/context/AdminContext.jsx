@@ -3,6 +3,8 @@ import { adminContext, CoursesContext } from './context';
 import NewCourseDialog from './../components/admin/dialog/NewCourseDialog';
 import DeleteCourseDialog from './../components/admin/dialog/DeleteCourseDialog';
 import EditeCourseDialog from './../components/admin/dialog/EditeCourseDialog';
+import { successMessage } from './../components/utils/Message';
+import { deleteCourse } from '../components/Services/coursesService';
 const AdminContext = ({ children }) => {
      const context = useContext(CoursesContext)
      const { course } = context
@@ -29,6 +31,17 @@ const AdminContext = ({ children }) => {
           console.log(currentPost)
      }
      const closeEditeCourseDialog = () => setEditeCourseDialog(false)
+/////////////////////////////*delete course*///////////////////////////////////////////
+const handleCourseDelete = async (courseId) => {
+     try {
+         const { status } = await deleteCourse(courseId);
+
+         if (status === 200) successMessage("دوره با موفقیت پاک شد.");
+     } catch (ex) {
+        console.log(ex)
+     }
+ }
+
 
      return (
           <adminContext.Provider
@@ -50,6 +63,7 @@ const AdminContext = ({ children }) => {
                     showDialog={deleteCourseDialog}
                     closeDialog={closeDeleteCourseDialog}
                     course={currentPost}
+                    handleCourseDelete = {handleCourseDelete}
                />
 
                <EditeCourseDialog
