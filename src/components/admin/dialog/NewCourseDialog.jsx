@@ -28,7 +28,9 @@ const NewCourseDialog = ({ showDialog, closeDialog }) => {
                const { status, data } = await http.post(
                     "https://toplearnapi.ghorbany.dev/api/course", myData
                );
-
+               const dupCourse = [...courses]
+               dupCourse.push(data.course)
+               setCourses(dupCourse)
                if (status === 201) {
                     successMessage("دوره با موفقیت ساخته شد")
                }

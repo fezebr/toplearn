@@ -6,9 +6,10 @@ const CourseTable = () => {
     const admincontext = useContext(adminContext)
     const {
         openNewCourseDialog,
-        closeNewCourseDialog,
         openDeleteCourseDialog,
-        openEditeCourseDialog
+        openEditeCourseDialog,
+        setSearch,
+        filteredCourses
 
     } = admincontext
 
@@ -35,6 +36,7 @@ const CourseTable = () => {
                         <input
                             type="text"
                             placeholder="جستجوی دوره"
+                          onChange = { (e) => setSearch(e.target.value)}  
                             className="form-control"
                             style={{
                                 width: "50%",
@@ -54,7 +56,7 @@ const CourseTable = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {courses.map((course) => (
+                            {filteredCourses.map((course) => (
                                 <tr key={course._id}>
                                     <td>{course.title}</td>
                                     <td>

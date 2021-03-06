@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { adminContext, CoursesContext } from './context';
 import NewCourseDialog from './../components/admin/dialog/NewCourseDialog';
 import DeleteCourseDialog from './../components/admin/dialog/DeleteCourseDialog';
@@ -7,13 +7,15 @@ import { successMessage } from './../components/utils/Message';
 import { deleteCourse } from '../components/Services/coursesService';
 const AdminContext = ({ children }) => {
      const context = useContext(CoursesContext)
-     const { course } = context
+     const { courses, setCourses } = context
 
      const [currentPost, setCurrentPost] = useState({})
-
+     const [courseList, setCourseList] = useState([])
+     const [search, setSearch] = useState([])
      const [newCourseDialog, setNewCourseDialog] = useState(false)
      const [deleteCourseDialog, setDeleteCourseDialog] = useState(false)
      const [editeCourseDialog, setEditeCourseDialog] = useState(false)
+
 
      const openNewCourseDialog = () => setNewCourseDialog(true)
      const closeNewCourseDialog = () => setNewCourseDialog(false)
@@ -31,27 +33,38 @@ const AdminContext = ({ children }) => {
           console.log(currentPost)
      }
      const closeEditeCourseDialog = () => setEditeCourseDialog(false)
-/////////////////////////////*delete course*///////////////////////////////////////////
-const handleCourseDelete = async (courseId) => {
-     try {
-         const { status } = await deleteCourse(courseId);
 
-         if (status === 200) successMessage("دوره با موفقیت پاک شد.");
-     } catch (ex) {
-        console.log(ex)
+     useEffect(() => setCourseList(courses), [courses])
+     const filteredCourses = courseList.filter(i => i.title.includes(search))
+
+     console.log(courses)
+     console.log(filteredCourses)
+     console.log(search)
+
+     /////////////////////////////*delete course*///////////////////////////////////////////
+     const handleCourseDelete = async (courseId) => {
+          try {
+               const { status } = await deleteCourse(courseId);
+               const filterDeletCourse = courses.filter(i => i._id !== courseId)
+               setCourses(filterDeletCourse)
+               if (status === 200) successMessage("دوره با موفقیت پاک شد.");
+          } catch (ex) {
+               console.log(ex)
+          }
      }
- }
 
 
      return (
           <adminContext.Provider
                value={{
-                    course,
+                    courses,
                     openNewCourseDialog,
                     closeNewCourseDialog,
                     openDeleteCourseDialog,
                     closeDeleteCourseDialog,
-                    openEditeCourseDialog
+                    openEditeCourseDialog,
+                    setSearch,
+                    filteredCourses
                }}
           >
                <NewCourseDialog
@@ -63,7 +76,7 @@ const handleCourseDelete = async (courseId) => {
                     showDialog={deleteCourseDialog}
                     closeDialog={closeDeleteCourseDialog}
                     course={currentPost}
-                    handleCourseDelete = {handleCourseDelete}
+                    handleCourseDelete={handleCourseDelete}
                />
 
                <EditeCourseDialog

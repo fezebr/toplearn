@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Dialog, DialogOverlay, DialogContent } from "@reach/dialog";
+import React, { useState, useEffect,useContext } from "react";
+import { DialogOverlay, DialogContent } from "@reach/dialog";
 import { updateCourse } from './../../Services/coursesService';
 import { CoursesContext } from './../../../context/context';
 import { successMessage } from './../../utils/Message';
 
 const EditeCourseDialog = ({ showDialog, closeDialog, course }) => {
+     const {courses,setCourses} = useContext(CoursesContext)
      const [courseId, setCourseId] = useState();
      const [title, setTitle] = useState();
      const [price, setPrice] = useState();
@@ -33,6 +34,7 @@ const EditeCourseDialog = ({ showDialog, closeDialog, course }) => {
      const handleSubmit = async (event) => {
           event.preventDefault();
           console.log(courseId)
+          ////////////////////////////////
           let MyData = new FormData();
           MyData.append("title", title);
           MyData.append("price", price);
@@ -41,12 +43,17 @@ const EditeCourseDialog = ({ showDialog, closeDialog, course }) => {
           else MyData.append("imageUrl", imageUrl);
           MyData.append("info", info);
           console.log(MyData);
-          for (var pair of MyData.entries()) {
-               console.log(pair[0] + ',' + pair[1])
-          }
+          // for (var pair of MyData.entries()) {
+          //      console.log(pair[0] + ',' + pair[1])
+          // }
+          ////////////////////////////////
+          
           try {
-               const { status } = await updateCourse(courseId, MyData);
-
+               const { status ,data} = await updateCourse(courseId, MyData);
+               const dupCourses = courses.filter( i => i._id !== courseId)
+               console.log(data)
+               dupCourses.push(data.course)
+               setCourses(dupCourses)
                if (status === 200) successMessage("دوره با موفقیت تعییر یافت.");
                closeDialog();
 
@@ -69,7 +76,7 @@ const EditeCourseDialog = ({ showDialog, closeDialog, course }) => {
                          boxShadow: "0px 10px 50px hsla(0, 0%, 0%, 0.33)",
                     }}
                >
-          
+
                     <div className="inner form-layer">
                          <form onSubmit={handleSubmit}>
                               <input

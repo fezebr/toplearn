@@ -18,9 +18,9 @@ export const userContext = React.createContext({
 });
 export const adminContext = React.createContext({
      course:"",
-     closeNewCourseDialog: () => {} ,
      openNewCourseDialog: () => {} ,
      openDeleteCourseDialog: () => {},
-     closeDeleteCourseDialog: () => {},
      openEditeCourseDialog: () => {},
+     setSearch: () => {},
+     filteredCourses: () =>{}
 });
