@@ -4,7 +4,12 @@ const CourseTable = () => {
     const coursescontext = useContext(CoursesContext)
     const { courses } = coursescontext
     const admincontext = useContext(adminContext)
-    const { openNewCourseDialog, closeNewCourseDialog } = admincontext
+    const {
+        openNewCourseDialog,
+        closeNewCourseDialog,
+        openDeleteCourseDialog,
+
+    } = admincontext
 
     console.log(courses)
     return (
@@ -71,7 +76,11 @@ const CourseTable = () => {
                                         </button>
                                     </td>
                                     <td>
-                                        <button className="btn btn-danger">
+                                        <button className="btn btn-danger"
+                                            onClick={() =>
+                                                openDeleteCourseDialog(course)
+                                            }
+                                        >
                                             حذف
                                         </button>
                                     </td>

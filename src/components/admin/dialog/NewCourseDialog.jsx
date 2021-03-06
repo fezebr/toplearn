@@ -25,11 +25,6 @@ const NewCourseDialog = ({ showDialog, closeDialog }) => {
                myData.append("imageUrl", event.target.imageUrl.files[0]);
                myData.append("info", info)
 
-               // console.log(myData)
-               // for (var pair of myData.entries()) {
-               //      console.log(pair[0] + ', ' + pair[1]);
-               // }
-
                const { status, data } = await http.post(
                     "https://toplearnapi.ghorbany.dev/api/course", myData
                );

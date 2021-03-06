@@ -1,11 +1,24 @@
-import React ,{useContext} from "react";
+import React, { useContext } from "react";
 import { Dialog, DialogOverlay, DialogContent } from "@reach/dialog";
+import { deleteCourse } from './../../Services/coursesService';
 import { CoursesContext } from './../../../context/context';
+import { successMessage } from './../../utils/Message';
 
 const DeleteCourseDialog = ({ showDialog, closeDialog, course }) => {
 
-     const context = useContext(CoursesContext)
-     const {courses} = context
+    const context = useContext(CoursesContext)
+    const { courses } = context
+    console.log(course)
+
+    const handleCourseDelete = async (courseId) => {
+        try {
+            const { status } = await deleteCourse(courseId);
+
+            if (status === 200) successMessage("دوره با موفقیت پاک شد.");
+        } catch (ex) {
+           console.log(ex)
+        }
+    }
 
     return (
         <DialogOverlay
@@ -14,12 +27,14 @@ const DeleteCourseDialog = ({ showDialog, closeDialog, course }) => {
             style={{ background: "hsla(0, 100%, 100%, 0.9)" }}
         >
             <DialogContent
+
                 style={{
                     border: "solid 5px hsla(0, 0%, 0%, 0.5)",
                     borderRadius: "10px",
                     boxShadow: "0px 10px 50px hsla(0, 0%, 0%, 0.33)",
                 }}
             >
+
                 <div className="card text-center">
                     <h3 style={{ fontSize: "2rem" }}>
                         پاک کردن دوره {course.title}
@@ -31,7 +46,7 @@ const DeleteCourseDialog = ({ showDialog, closeDialog, course }) => {
                     className="btn btn-danger "
                     style={{ margin: "1em" }}
                     onClick={() =>
-                        dispatch(handleCourseDelete(course._id)) &&
+                        handleCourseDelete(course._id) &&
                         closeDialog()
                     }
                 >
@@ -44,6 +59,7 @@ const DeleteCourseDialog = ({ showDialog, closeDialog, course }) => {
                 >
                     انصراف
                 </button>
+
             </DialogContent>
         </DialogOverlay>
     );
